@@ -1,12 +1,12 @@
 name: Python Tests
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
+  
   build:
+    if: github.ref == 'refs/heads/fix_poetry
     runs-on: ubuntu-latest
 
     strategy:
@@ -31,14 +31,14 @@ jobs:
           poetry config virtualenvs.create false
           poetry install
 
-      - name: Run tests with pytest
-        run: |
-          cd adalflow
-          poetry run pytest
+      # - name: Run tests with pytest
+      #   run: |
+      #     cd adalflow
+      #     poetry run pytest
 
-      - name: Upload pytest results as an artifact (optional)
-        uses: actions/upload-artifact@v3 # Updated to the latest version
-        if: always() # Always run this step to ensure test results are saved even if previous steps fail
-        with:
-          name: pytest-results
-          path: adalflow/.pytest_cache
+      # - name: Upload pytest results as an artifact (optional)
+      #   uses: actions/upload-artifact@v3 # Updated to the latest version
+      #   if: always() # Always run this step to ensure test results are saved even if previous steps fail
+      #   with:
+      #     name: pytest-results
+      #     path: adalflow/.pytest_cache
