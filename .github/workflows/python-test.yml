@@ -1,11 +1,14 @@
 name: Python Tests
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      # - main
+      - fix_poetry
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/fix_poetry'
+    # if: github.ref == 'refs/heads/fix_poetry'
     runs-on: ubuntu-latest
 
     strategy:
