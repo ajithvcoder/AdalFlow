@@ -1,10 +1,6 @@
 import unittest
 from unittest.mock import patch, Mock
 
-# use the openai for mocking standard data types
-from openai.types import CompletionUsage
-from openai.types.chat import ChatCompletion
-
 from adalflow.core.types import ModelType, GeneratorOutput
 from adalflow.components.model_client import BedrockAPIClient
 
