@@ -4,7 +4,6 @@ from unittest.mock import patch, Mock
 
 from adalflow.core.types import ModelType, GeneratorOutput
 from adalflow.components.model_client import BedrockAPIClient
-from adalflow import setup_env
 
 
 def getenv_side_effect(key):
@@ -21,12 +20,15 @@ def getenv_side_effect(key):
 class TestBedrockClient(unittest.TestCase):
     def setUp(self):
         # Patch os.environ to ensure all environment variables are set
-        with patch.dict(os.environ, {
-            "AWS_ACCESS_KEY_ID": "fake_api_key",
-            "AWS_SECRET_ACCESS_KEY": "fake_api_key",
-            "AWS_REGION_NAME": "fake_api_key",
-            "AWS_PROFILE_NAME": "fake_profile"  # Adding additional profile if needed
-        }):
+        with patch.dict(
+            os.environ,
+            {
+                "AWS_ACCESS_KEY_ID": "fake_api_key",
+                "AWS_SECRET_ACCESS_KEY": "fake_api_key",
+                "AWS_REGION_NAME": "fake_api_key",
+                "AWS_PROFILE_NAME": "fake_profile",  # Adding additional profile if needed
+            },
+        ):
             # Now patch os.getenv to return mocked environment variable values
             with patch("os.getenv", side_effect=getenv_side_effect):
                 self.client = BedrockAPIClient()
